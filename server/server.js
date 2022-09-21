@@ -13,4 +13,14 @@ config.express(server);
 config.routes(server);
 
 
+const cors              = require('cors');
+const passport          = require('passport');
+const passportLocal     = require('passport-local').Strategy;
+const cookieParser      = require('cookie-parser');
+const expressSession    = require('express-session');
+
+
+
+
+
 server.listen(port, ()=>{console.log(`Server listening on port ${port}!`)});
