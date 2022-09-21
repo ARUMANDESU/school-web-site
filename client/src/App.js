@@ -15,9 +15,9 @@ function App() {
 
     const register = () => {
         Axios.post('http://localhost:5000/register',{
-            "firstName":registerFirstName,
-            "lastName":registerLastName,
-            "password":registerPassword
+            firstName:registerFirstName,
+            lastName:registerLastName,
+            password:registerPassword
         },{withCredentials:true})
             .then(response => {
                 console.log(response)
@@ -27,12 +27,11 @@ function App() {
     const login = () =>{
 
     };
-    const getUser = () =>{
-        Axios({
-            method:'GET',
-            withCredentials: true,
-            url:'http://localhost:5000/users',
-        }).then((res) => {setUsers(res)})
+    const getUser = async() =>{
+        const res = await Axios.get('http://localhost:5000/users' )
+        console.log(res)
+        setUsers(res.data)
+        console.log(res)
     };
 
     return (
@@ -53,7 +52,8 @@ function App() {
             <div>
                 <h1>Get User</h1>
                 <textarea aria-valuetext={users}></textarea>
-                <button onClick={getUser}>Submit</button>
+                <button onClick={()=>{
+                    console.log('12312312313');getUser()}}>Submit</button>
             </div>
         </div>
     );
