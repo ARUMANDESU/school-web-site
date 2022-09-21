@@ -13,4 +13,4 @@ config.express(server);
 config.routes(server);
 
 
-server.listen(port, ()=>{console.log(`Example app listening on port ${port}!`)});
+server.listen(port, ()=>{console.log(`Server listening on port ${port}!`)});
