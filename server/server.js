@@ -20,17 +20,18 @@ const passportLocal     = require('passport-local').Strategy;
 const cookieParser      = require('cookie-parser');
 const session           = require('express-session');
 
-server.use(cors({
-    origin: ["http://localhost:3000",process.env.reactAppUrl,'*'],
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    credentials: true
-}));
+
+server.use(cookieParser(process.env.cookieSecret))
 server.use(session({
     secret: process.env.sessionSecret,
     resave: true,
     saveUninitialized: true
 }));
-server.use(cookieParser(process.env.cookieSecret))
+server.use(cors({
+    origin: process.env.reactAppUrl,
+    credentials: true,
+}));
+
 
 server.post('/login',((req, res) => {
     res.json('login');

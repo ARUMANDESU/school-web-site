@@ -1,10 +1,18 @@
 const User          = require('../models/user')
 
 const getAll =async (req, res) => {
-    await User.find()
-        .exec()
-        .then(users => res.json(users))
-        .catch(err => res.status(500).json(err))
+    // res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+
+    const users = await User.find()
+    console.log(users)
+    return res.json(users)
+
+
+
+    // await User.find()
+    //     .exec()
+    //     .then(users => res.json(users))
+    //     .catch(err => res.status(500).json(err))
 };
 
 const create = async (req, res) => {
