@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import {useState} from "react";
-import axios from "axios";
+import Axios from "axios";
 
 function App() {
     const[registerFirstName, setRegisterFirstName] = useState('');
@@ -11,26 +11,28 @@ function App() {
     const[loginFirstName, setLoginFirstName] = useState('');
     const[loginLastName, setLoginLastName] = useState('');
     const[loginPassword, setLoginPassword] = useState('');
+    const[users, setUsers] = useState({})
 
     const register = () => {
-        axios({
-            method:'post',
-            data:
-                {
-                    "firstName":registerFirstName,
-                    "lastName":registerLastName,
-                    "password":registerPassword
-                },
-            withCredentials: true,
-            url:'http://localhost:5000/register',
-        })
-            .then((res) => console.log(res));
+        Axios.post('http://localhost:5000/register',{
+            "firstName":registerFirstName,
+            "lastName":registerLastName,
+            "password":registerPassword
+        },{withCredentials:true})
+            .then(response => {
+                console.log(response)
+            })
+            .catch(err => console.log(err.response))
     };
     const login = () =>{
 
     };
     const getUser = () =>{
-
+        Axios({
+            method:'GET',
+            withCredentials: true,
+            url:'http://localhost:5000/users',
+        }).then((res) => {setUsers(res)})
     };
 
     return (
@@ -39,7 +41,7 @@ function App() {
                 <h1>Register</h1>
                 <input placeholder='firstName' onChange={e => setRegisterFirstName(e.target.value)}/>
                 <input placeholder='lastName' onChange={e => setRegisterLastName(e.target.value)}/>
-                <input placeholder='password' onChange={e => setRegisterFirstName(e.target.value)}/>
+                <input placeholder='password' onChange={e => setRegisterPassword(e.target.value)}/>
                 <button onClick={register}>Submit</button>
             </div>
             <div>
@@ -50,6 +52,7 @@ function App() {
             </div>
             <div>
                 <h1>Get User</h1>
+                <textarea aria-valuetext={users}></textarea>
                 <button onClick={getUser}>Submit</button>
             </div>
         </div>

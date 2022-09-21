@@ -18,10 +18,11 @@ const cors              = require('cors');
 const passport          = require('passport');
 const passportLocal     = require('passport-local').Strategy;
 const cookieParser      = require('cookie-parser');
-const session    = require('express-session');
+const session           = require('express-session');
 
 server.use(cors({
-    origin: "http://localhost:3000",
+    origin: ["http://localhost:3000",process.env.reactAppUrl,'*'],
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true
 }));
 server.use(session({
@@ -31,7 +32,7 @@ server.use(session({
 }));
 server.use(cookieParser(process.env.cookieSecret))
 
-server.post('/login', ((req, res) => {
+server.post('/login',((req, res) => {
     res.json('login');
 }));
 

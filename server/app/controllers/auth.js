@@ -12,7 +12,6 @@ const register = async (req, res) => {
                 .then(user => res.json(user))
                 .catch(err => res.status(500).json(err))
         });
-
     }
     else{
         res.status(409).json({success:false, text:"Already exists"});
